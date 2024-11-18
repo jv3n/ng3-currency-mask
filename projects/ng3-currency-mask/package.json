@@ -1,6 +1,6 @@
 {
   "name": "ng3-currency-mask",
-  "version": "18.0.0",
+  "version": "18.1.0",
   "peerDependencies": {
     "@angular/common": ">= 18.x.x",
     "@angular/core": ">= 18.x.x"

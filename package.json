@@ -1,6 +1,6 @@
 {
   "name": "ng3-currency-mask",
-  "version": "18.0.0",
+  "version": "18.1.0",
   "description": "A very simple currency mask directive that allows using a number attribute, Angular 18+.",
   "repository": {
     "type": "git",
