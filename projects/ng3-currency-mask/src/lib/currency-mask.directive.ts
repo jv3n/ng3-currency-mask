@@ -5,8 +5,10 @@ import {
   ElementRef,
   forwardRef,
   HostListener,
+  inject,
   Inject,
   Input,
+  input,
   KeyValueDiffer,
   KeyValueDiffers,
   OnInit,
@@ -16,23 +18,24 @@ import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig } from './currency-mask.config';
 import { InputHandler } from './input.handler';
 
-export const CURRENCYMASKDIRECTIVE_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => CurrencyMaskDirective),
-  multi: true,
-};
-
 @Directive({
   selector: '[currencyMask]',
   providers: [
-    CURRENCYMASKDIRECTIVE_VALUE_ACCESSOR,
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CurrencyMaskDirective),
+      multi: true,
+    },
     { provide: NG_VALIDATORS, useExisting: CurrencyMaskDirective, multi: true },
   ],
   standalone: true,
 })
 export class CurrencyMaskDirective implements AfterViewInit, ControlValueAccessor, DoCheck, OnInit, Validator {
-  @Input() max: number;
-  @Input() min: number;
+  readonly elementRef = inject(ElementRef);
+  readonly keyValueDiffers = inject(KeyValueDiffers);
+
+  max = input<number>();
+  min = input<number>();
   @Input() options: any = {};
 
   inputHandler: InputHandler;
@@ -46,18 +49,14 @@ export class CurrencyMaskDirective implements AfterViewInit, ControlValueAccesso
     prefix: '$ ',
     suffix: '',
     thousands: ',',
-  };
+  } as CurrencyMaskConfig;
 
-  constructor(
-    @Optional() @Inject(CURRENCY_MASK_CONFIG) private currencyMaskConfig: CurrencyMaskConfig,
-    private elementRef: ElementRef,
-    private keyValueDiffers: KeyValueDiffers,
-  ) {
+  constructor(@Optional() @Inject(CURRENCY_MASK_CONFIG) private currencyMaskConfig: CurrencyMaskConfig) {
     if (currencyMaskConfig) {
       this.optionsTemplate = currencyMaskConfig;
     }
 
-    this.keyValueDiffer = keyValueDiffers.find({}).create();
+    this.keyValueDiffer = this.keyValueDiffers.find({}).create();
   }
 
   ngAfterViewInit() {
@@ -153,11 +152,11 @@ export class CurrencyMaskDirective implements AfterViewInit, ControlValueAccesso
   validate(abstractControl: AbstractControl): { [key: string]: any } {
     let result: any = {};
 
-    if (abstractControl.value > this.max) {
+    if (abstractControl.value > this.max()) {
       result.max = true;
     }
 
-    if (abstractControl.value < this.min) {
+    if (abstractControl.value < this.min()) {
       result.min = true;
     }
 

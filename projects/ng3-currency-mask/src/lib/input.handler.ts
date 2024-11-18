@@ -203,11 +203,9 @@ export class InputHandler {
   }
 
   private isArrowEndHomeKeyInFirefox(event: any) {
-    if ([35, 36, 37, 38, 39, 40].indexOf(event.keyCode) != -1 && (event.charCode == undefined || event.charCode == 0)) {
-      return true;
-    }
-
-    return false;
+    return (
+      [35, 36, 37, 38, 39, 40].indexOf(event.keyCode) != -1 && (event.charCode == undefined || event.charCode == 0)
+    );
   }
 
   private isReadOnly() {
