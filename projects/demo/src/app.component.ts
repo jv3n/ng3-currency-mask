@@ -6,12 +6,35 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarContainer } from '@angular/material/snack-bar';
 import { CurrencyMaskDirective } from 'ng3-currency-mask';
 
 @Component({
   selector: 'app-root',
-  styleUrl: 'app.component.scss',
+  styles: `
+    :host {
+      padding: 4em 8rem 4rem;
+      display: flex;
+
+      mat-card {
+        margin: 1rem;
+        width: 50%;
+      }
+
+      .config-content {
+        display: flex;
+        flex-direction: column;
+        width: max-content;
+      }
+
+      .error {
+        color: var(--mat-form-field-error-text-color);
+      }
+
+      mat-card-subtitle {
+        padding: 1rem;
+      }
+    }
+  `,
   template: `
     <mat-card appearance="outlined">
       <mat-card-content>
@@ -136,7 +159,6 @@ import { CurrencyMaskDirective } from 'ng3-currency-mask';
     MatOptionModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSnackBarContainer,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

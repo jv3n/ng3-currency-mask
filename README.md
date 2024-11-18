@@ -1,7 +1,7 @@
 # ng3-currency-mask
 
-A very simple currency mask directive for Angular that allows using a number attribute with the ngModel. In other words,
-the model is a number, and not a string with a mask. It was tested in Angular version 13.
+A very simple currency mask standalone directive for Angular that allows using a number attribute with the ngModel. In
+other words, the model is a number, and not a string with a mask. It was tested in Angular version 18. Angular 18+.
 
 ## Example App
 
@@ -20,7 +20,7 @@ Install the package by command:
 Import the directive in your standalone component
 
 ```ts
-import { CurrencyMaskDirective } from '../../../ng3-currency-mask/src/index';
+import { CurrencyMaskDirective } from 'ng3-currency-mask';
 
 @Component({
   selector: 'app-root',
@@ -56,35 +56,6 @@ Available options:
 - `prefix` - Money prefix (default: `'$ '`)
 - `suffix` - Money suffix (default: `''`)
 - `thousands` - Separator of thousands (default: `','`)
-
-You can also set options globally...
-
-```ts
-import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng3-currency-mask';
-
-export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
-    align: "right",
-    allowNegative: true,
-    decimal: ",",
-    precision: 2,
-    prefix: "R$ ",
-    suffix: "",
-    thousands: "."
-};
-
-@NgModule({
-    imports: [
-        ...
-        CurrencyMaskModule
-    ],
-    declarations: [...],
-    providers: [
-        { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
-    ],
-    bootstrap: [AppComponent]
-})
-export class AppModule {}
-```
 
 ### Validation
 
