@@ -2,6 +2,9 @@
 
 A very simple currency mask standalone directive for Angular that allows using a number attribute. Angular 18+.
 
+# Example App
+https://stackblitz.com/edit/stackblitz-starters-h6b1cm?file=package.json
+
 ## Getting Started
 
 ### Installing and Importing
